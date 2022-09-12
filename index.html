@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <h1>React-Interview-Prepration-04</h1>
+    <h2>Q.1 What is UseRef Hook ?(Implementation)</h2> <br>
+    <p> Ans-- useRef takes in a single function argument, initialValue , and returns a mutable reference object whose .current
+        value is initialized to the passed argument. useRef is essentially a “box” whose current key holds a mutable
+        value.</p>
+    <pre>const Timer = () => {
+        const intervalRef = useRef();
+    
+        useEffect(() => {
+        const id = setInterval(() => {
+        // ...
+        });
+        intervalRef.current = id;
+        return () => {
+        clearInterval(intervalRef.current);
+        };
+        });
+    
+        // ...
+        } </pre>
+    <h2>Q.2 What is Context api</h2><br>
+    <p>Ans--  The React Context API is a way for a React app to effectively produce global variables that can be passed
+        around. This is the alternative to "prop drilling" or moving props from grandparent to child to parent, and so
+        on. Context is also touted as an easier, lighter approach to state management using Redux.</p>
+    <pre>First Import EX--
+        import React, { createContext } from "react";
+        const UserContext = createContext();
+    </pre>
+    <pre>EX--
+        const UserProvider = ({ children }) => {
+            const [name, setName] = useState("John Doe");
+            const [age, setAge] = useState(1);
+            const happyBirthday = () => setAge(age + 1);
+            return (
+              <UserContext.Provider value={{ name, age, happyBirthday }}>
+                {children}
+              </UserContext.Provider>
+            );
+          };
+    </pre>
+    <h2>Q.3 Difference between callback and useCallback Hook ?</h2><br>
+    <p>Ans-- useCallback--UseCallback is used to optimize the rendering behavior of your React function components, while useMemo is used to memoize expensive functions to avoid having to call them on every render. As a standard construction of hooks, those two solutions are not so different. Like with useEffect, a hook that manages the side-effects in functional components, argument callback comes first and then an array of dependencies.</p>
+    <pre>
+         function callbackUsed() {
+        const _  = useCallback(() => {
+          return ‘insert JSX here’
+        })
+      
+        return _()
+      }</pre><br>
+    <p>Ans-- callback--A callback function is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action. </p>
+    <pre>
+        function myFirst() {
+            myDisplayer("Hello");
+          }
+          
+          function mySecond() {
+            myDisplayer("Goodbye");
+          }
+          
+          myFirst();
+          mySecond();
+    </pre><br>
+    
+    <h2>Q.4 What is Props Drilling Concept ?What is State Uplifting ?</h2>
+    <p>Ans-- Prop drilling is the unofficial term for passing data through several nested children components, in a bid to deliver this data to a deeply-nested component. The problem with this approach is that most of the components through which this data is passed have no actual need for this data. They are simply used as mediums for transporting this data to its destination component.</p>
+    <img src="https://miro.medium.com/max/982/1*lNk3Eo8AqThYs68m465ADg.png" alt=""><br>
+    <p>Ans-- State Uplifting--In React, each component has its state. Lifting the state up is a valuable concept for React developers since we often have a state that is accommodated within a single component but needs to be shared with its siblings. We lift the state up to make the parent state a single shared state and a sole "source of truth" and pass the parent's data to its children. </p><br>
+    
+     <h2>Q.5 Difference between useEffect and useContext ?</h2>
+    <p>The useEffect() hook lets you perform side effects, or modification to some sort of state.This hook can be best thought of as componentDidMount(), componentDidUpdate(), and componentWillUnmount() all in one, which lets us hook into the life cycle method of functional components.
+        useEffect() accepts two arguments:
+        Callback — the callback is what contains the side effect logic. The callback will be executed after the initial render, much like componentDidMount()
+        Dependencies — the dependencies argument is an optional array. If the state of what’s placed in the dependency array changes, then the useEffect() hook will be triggered causing the callback to run again. This is where the true control of useEffect() comes in.</p><br>
+    <p>The useContext() hook is used to create common data that can be easily shared amongst components without having to pass props manually to each level.
+
+        This can be instantiated by creating a context in a separate file using createContext().</p><br>
+
+    <h2>Q.6 What are React Life cycles Explain each one with Example</h2>
+    <p>In React, components go through a lifecycle of events:</p> <br>
+
+       <p>-->  Mounting (adding nodes to the DOM)</p> <br>
+        <pre>const MyComponent extends React.Component {
+            constructor(props) {
+             super(props) 
+              this.state = {
+                 points: 0
+              }  
+              this.handlePoints = this.handlePoints.bind(this) 
+              }   
+          }</pre><br>
+       <p>-->  Updating (altering existing nodes in the DOM) </p><br>
+        <pre>componentDidUpdate(prevProps, prevState) {
+ 
+        }</pre><br>
+       <p>-->  Unmounting (removing nodes from the DOM) </p><br>
+        <pre>// e.g add event listener
+            componentDidMount() {
+                el.addEventListener()
+            }
+            
+            // e.g remove event listener 
+            componentWillUnmount() {
+                el.removeEventListener()
+             }</pre><br>
+      <p> -->  Error handling (verifying that your code works and is bug-free)  </p> <br>
+         <pre>import React, { Component } from 'react';
+
+            class ErrorBoundary extends Component {
+              state = {};
+              render() {
+                return null;
+              }
+            }
+            
+            export default ErrorBoundary;</pre><br>
+    
+</body>
+</html>
